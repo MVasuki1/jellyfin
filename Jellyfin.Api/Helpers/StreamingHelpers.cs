@@ -167,7 +167,7 @@ namespace Jellyfin.Api.Helpers
             var encodingOptions = serverConfigurationManager.GetEncodingOptions();
 
             encodingHelper.AttachMediaSourceInfo(state, encodingOptions, mediaSource, url);
-
+	    state.MediaPath = item.Path;
             string? containerInternal = Path.GetExtension(state.RequestedUrl);
 
             if (!string.IsNullOrEmpty(streamingRequest.Container))

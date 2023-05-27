@@ -128,7 +128,7 @@ namespace Emby.Server.Implementations.Library.Resolvers.Audio
 
                 if (item != null)
                 {
-                    item.IsShortcut = string.Equals(extension, ".strm", StringComparison.OrdinalIgnoreCase);
+                    item.IsShortcut = string.Equals(extension, ".m3u", StringComparison.OrdinalIgnoreCase);
 
                     item.IsInMixedFolder = true;
                 }

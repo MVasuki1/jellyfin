@@ -128,7 +128,7 @@ namespace Emby.Server.Implementations.Library.Resolvers
                 ? VideoType.Iso
                 : VideoType.VideoFile;
 
-            video.IsShortcut = extension.Equals(".strm", StringComparison.OrdinalIgnoreCase);
+            video.IsShortcut = extension.Equals(".m3u", StringComparison.OrdinalIgnoreCase);
             video.IsPlaceHolder = videoInfo.IsStub;
 
             if (videoInfo.IsStub)

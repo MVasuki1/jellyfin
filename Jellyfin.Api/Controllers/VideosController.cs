@@ -444,7 +444,23 @@ namespace Jellyfin.Api.Controllers
                     cancellationTokenSource.Token)
                 .ConfigureAwait(false);
 
-            if (@static.HasValue && @static.Value && state.DirectStreamProvider != null)
+	    // Static stream
+            if (@static.HasValue && @static.Value){
+        	var contentType = state.GetMimeType(state.MediaPath);
+        	return FileStreamResponseHelpers.GetStaticFileResult(
+        	    state.MediaPath,
+        	    contentType);
+            }
+            // Static remote stream
+            if (@static.HasValue && @static.Value && state.InputProtocol == MediaProtocol.Http)
+            {
+        	StreamingHelpers.AddDlnaHeaders(state, Response.Headers, true, state.Request.StartTimeTicks, Request, _dlnaManager);
+
+        	var httpClient = _httpClientFactory.CreateClient(NamedClient.Default);
+        	return await FileStreamResponseHelpers.GetStaticRemoteStreamResult(state, httpClient, HttpContext).ConfigureAwait(false);
+            }
+
+	    if (@static.HasValue && @static.Value && state.DirectStreamProvider != null)
             {
                 StreamingHelpers.AddDlnaHeaders(state, Response.Headers, true, state.Request.StartTimeTicks, Request, _dlnaManager);
 
