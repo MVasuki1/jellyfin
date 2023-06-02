@@ -418,8 +418,8 @@ namespace MediaBrowser.Controller.MediaEncoding
                 return null;
             }
 
-            // obviously don't do this for strm files
-            if (string.Equals(container, "strm", StringComparison.OrdinalIgnoreCase))
+            // obviously don't do this for m3u files
+            if (string.Equals(container, "m3u", StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }
@@ -5613,11 +5613,11 @@ namespace MediaBrowser.Controller.MediaEncoding
             var path = mediaSource.Path;
             var protocol = mediaSource.Protocol;
 
-            if (!string.IsNullOrEmpty(mediaSource.EncoderPath) && mediaSource.EncoderProtocol.HasValue)
-            {
-                path = mediaSource.EncoderPath;
-                protocol = mediaSource.EncoderProtocol.Value;
-            }
+            //if (!string.IsNullOrEmpty(mediaSource.EncoderPath) && mediaSource.EncoderProtocol.HasValue)
+            //{
+            //    path = mediaSource.EncoderPath;
+            //    protocol = mediaSource.EncoderProtocol.Value;
+            //}
 
             state.MediaPath = path;
             state.InputProtocol = protocol;

@@ -43,7 +43,6 @@ namespace MediaBrowser.Model.Net
             ".m4v",
             ".mk3d",
             ".mkv",
-            ".mov",
             ".mp4",
             ".mpg",
             ".mpeg",

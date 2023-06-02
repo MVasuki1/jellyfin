@@ -41,7 +41,7 @@ public static class FileStreamResponseHelpers
         var response = await httpClient.GetAsync(new Uri(state.MediaPath), cancellationToken).ConfigureAwait(false);
         var contentType = response.Content.Headers.ContentType?.ToString() ?? MediaTypeNames.Text.Plain;
 
-        httpContext.Response.Headers[HeaderNames.AcceptRanges] = "none";
+        //httpContext.Response.Headers[HeaderNames.AcceptRanges] = "none";
 
         return new FileStreamResult(await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false), contentType);
     }

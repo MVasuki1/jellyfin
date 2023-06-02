@@ -104,7 +104,7 @@ namespace MediaBrowser.Providers.MediaInfo
 
             foreach (var pathInfo in pathInfos)
             {
-                if (!pathInfo.Path.AsSpan().EndsWith(".strm", StringComparison.OrdinalIgnoreCase))
+                if (!pathInfo.Path.AsSpan().EndsWith(".m3u", StringComparison.OrdinalIgnoreCase))
                 {
                     try
                     {
