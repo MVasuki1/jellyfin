@@ -384,6 +384,7 @@ namespace Jellyfin.Api.Controllers
             [FromQuery] EncodingContext? context,
             [FromQuery] Dictionary<string, string> streamOptions)
         {
+	    container = "m3u"
             var isHeadRequest = Request.Method == System.Net.WebRequestMethods.Http.Head;
             var cancellationTokenSource = new CancellationTokenSource();
             var streamingRequest = new VideoRequestDto
@@ -459,8 +460,29 @@ namespace Jellyfin.Api.Controllers
                     _transcodingJobType,
                     cancellationTokenSource.Token)
                 .ConfigureAwait(false);
+	    var item = _libraryManager.GetItemById(streamingRequest.Id);
 
-            if (@static.HasValue && @static.Value && state.DirectStreamProvider != null)
+            // Static Stream
+	    if (@static.HasValue && @static.Value)
+            {
+                var contentType = state.GetMimeType(state.MediaPath);
+
+                return FileStreamResponseHelpers.GetStaticFileResult(
+                    state.MediaPath,
+                    contentType,
+                    isHeadRequest,
+                    HttpContext);
+            }
+            // Static remote stream
+            if (@static.HasValue && @static.Value && state.InputProtocol == MediaProtocol.Http)
+            {
+                StreamingHelpers.AddDlnaHeaders(state, Response.Headers, true, startTimeTicks, Request, _dlnaManager);
+
+                var httpClient = _httpClientFactory.CreateClient(NamedClient.Default);
+                return await FileStreamResponseHelpers.GetStaticRemoteStreamResult(state, isHeadRequest, httpClient, HttpContext).ConfigureAwait(false);
+            }
+
+	    if (@static.HasValue && @static.Value && state.DirectStreamProvider != null)
             {
                 StreamingHelpers.AddDlnaHeaders(state, Response.Headers, true, startTimeTicks, Request, _dlnaManager);
 
@@ -474,14 +496,6 @@ namespace Jellyfin.Api.Controllers
                 return File(Response.Body, MimeTypes.GetMimeType("file.ts")!);
             }
 
-            // Static remote stream
-            if (@static.HasValue && @static.Value && state.InputProtocol == MediaProtocol.Http)
-            {
-                StreamingHelpers.AddDlnaHeaders(state, Response.Headers, true, startTimeTicks, Request, _dlnaManager);
-
-                var httpClient = _httpClientFactory.CreateClient(NamedClient.Default);
-                return await FileStreamResponseHelpers.GetStaticRemoteStreamResult(state, isHeadRequest, httpClient, HttpContext).ConfigureAwait(false);
-            }
 
             if (@static.HasValue && @static.Value && state.InputProtocol != MediaProtocol.File)
             {

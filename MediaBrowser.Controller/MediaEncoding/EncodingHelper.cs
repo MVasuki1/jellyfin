@@ -307,8 +307,8 @@ namespace MediaBrowser.Controller.MediaEncoding
                 return null;
             }
 
-            // obviously don't do this for strm files
-            if (string.Equals(container, "strm", StringComparison.OrdinalIgnoreCase))
+            // obviously don't do this for m3u files
+            if (string.Equals(container, "m3u", StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }
@@ -605,7 +605,7 @@ namespace MediaBrowser.Controller.MediaEncoding
                 if (state.IsVideoRequest
                     && ((string.Equals(encodingOptions.HardwareAccelerationType, "nvenc", StringComparison.OrdinalIgnoreCase)
                          && (isNvdecDecoder || isCuvidHevcDecoder || isSwDecoder))
-                        || (string.Equals(encodingOptions.HardwareAccelerationType, "amf", StringComparison.OrdinalIgnoreCase) 
+                        || (string.Equals(encodingOptions.HardwareAccelerationType, "amf", StringComparison.OrdinalIgnoreCase)
                             && (isD3d11vaDecoder || isSwDecoder))))
                 {
                     if (isTonemappingSupported)
@@ -2926,7 +2926,7 @@ namespace MediaBrowser.Controller.MediaEncoding
             if (threads <= 0)
             {
                 return 0;
-            } 
+            }
             else if (threads >= Environment.ProcessorCount)
             {
                 return Environment.ProcessorCount;

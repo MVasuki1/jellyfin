@@ -42,7 +42,7 @@ namespace Jellyfin.Api.Helpers
             var response = await httpClient.GetAsync(new Uri(state.MediaPath)).ConfigureAwait(false);
             var contentType = response.Content.Headers.ContentType?.ToString();
 
-            httpContext.Response.Headers[HeaderNames.AcceptRanges] = "none";
+            //httpContext.Response.Headers[HeaderNames.AcceptRanges] = "none";
 
             if (isHeadRequest)
             {

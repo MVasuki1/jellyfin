@@ -23,8 +23,6 @@ namespace MediaBrowser.Controller.Playlists
     {
         public static string[] SupportedExtensions =
             {
-                ".m3u",
-                ".m3u8",
                 ".pls",
                 ".wpl",
                 ".zpl"

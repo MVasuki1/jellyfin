@@ -405,67 +405,67 @@ namespace Emby.Server.Implementations.Playlists
                 File.WriteAllText(playlistPath, text);
             }
 
-            if (string.Equals(".m3u", extension, StringComparison.OrdinalIgnoreCase))
-            {
-                var playlist = new M3uPlaylist
-                {
-                    IsExtended = true
-                };
-                foreach (var child in item.GetLinkedChildren())
-                {
-                    var entry = new M3uPlaylistEntry()
-                    {
-                        Path = NormalizeItemPath(playlistPath, child.Path),
-                        Title = child.Name,
-                        Album = child.Album
-                    };
+            //if (string.Equals(".m3u", extension, StringComparison.OrdinalIgnoreCase))
+            //{
+            //    var playlist = new M3uPlaylist
+            //    {
+            //        IsExtended = true
+            //    };
+            //    foreach (var child in item.GetLinkedChildren())
+            //    {
+            //        var entry = new M3uPlaylistEntry()
+            //        {
+            //            Path = NormalizeItemPath(playlistPath, child.Path),
+            //            Title = child.Name,
+            //            Album = child.Album
+            //        };
 
-                    if (child is IHasAlbumArtist hasAlbumArtist)
-                    {
-                        entry.AlbumArtist = hasAlbumArtist.AlbumArtists.Count > 0 ? hasAlbumArtist.AlbumArtists[0] : null;
-                    }
+            //        if (child is IHasAlbumArtist hasAlbumArtist)
+            //        {
+            //            entry.AlbumArtist = hasAlbumArtist.AlbumArtists.Count > 0 ? hasAlbumArtist.AlbumArtists[0] : null;
+            //        }
 
-                    if (child.RunTimeTicks.HasValue)
-                    {
-                        entry.Duration = TimeSpan.FromTicks(child.RunTimeTicks.Value);
-                    }
+            //        if (child.RunTimeTicks.HasValue)
+            //        {
+            //            entry.Duration = TimeSpan.FromTicks(child.RunTimeTicks.Value);
+            //        }
 
-                    playlist.PlaylistEntries.Add(entry);
-                }
+            //        playlist.PlaylistEntries.Add(entry);
+            //    }
 
-                string text = new M3uContent().ToText(playlist);
-                File.WriteAllText(playlistPath, text);
-            }
+            //    string text = new M3uContent().ToText(playlist);
+            //    File.WriteAllText(playlistPath, text);
+            //}
 
-            if (string.Equals(".m3u8", extension, StringComparison.OrdinalIgnoreCase))
-            {
-                var playlist = new M3uPlaylist();
-                playlist.IsExtended = true;
-                foreach (var child in item.GetLinkedChildren())
-                {
-                    var entry = new M3uPlaylistEntry()
-                    {
-                        Path = NormalizeItemPath(playlistPath, child.Path),
-                        Title = child.Name,
-                        Album = child.Album
-                    };
+            //if (string.Equals(".m3u8", extension, StringComparison.OrdinalIgnoreCase))
+            //{
+            //    var playlist = new M3uPlaylist();
+            //    playlist.IsExtended = true;
+            //    foreach (var child in item.GetLinkedChildren())
+            //    {
+            //        var entry = new M3uPlaylistEntry()
+            //        {
+            //            Path = NormalizeItemPath(playlistPath, child.Path),
+            //            Title = child.Name,
+            //            Album = child.Album
+            //        };
 
-                    if (child is IHasAlbumArtist hasAlbumArtist)
-                    {
-                        entry.AlbumArtist = hasAlbumArtist.AlbumArtists.Count > 0 ? hasAlbumArtist.AlbumArtists[0] : null;
-                    }
+            //        if (child is IHasAlbumArtist hasAlbumArtist)
+            //        {
+            //            entry.AlbumArtist = hasAlbumArtist.AlbumArtists.Count > 0 ? hasAlbumArtist.AlbumArtists[0] : null;
+            //        }
 
-                    if (child.RunTimeTicks.HasValue)
-                    {
-                        entry.Duration = TimeSpan.FromTicks(child.RunTimeTicks.Value);
-                    }
+            //        if (child.RunTimeTicks.HasValue)
+            //        {
+            //            entry.Duration = TimeSpan.FromTicks(child.RunTimeTicks.Value);
+            //        }
 
-                    playlist.PlaylistEntries.Add(entry);
-                }
+            //        playlist.PlaylistEntries.Add(entry);
+            //    }
 
-                string text = new M3uContent().ToText(playlist);
-                File.WriteAllText(playlistPath, text);
-            }
+            //    string text = new M3uContent().ToText(playlist);
+            //    File.WriteAllText(playlistPath, text);
+            //}
 
             if (string.Equals(".pls", extension, StringComparison.OrdinalIgnoreCase))
             {
