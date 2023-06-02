@@ -172,9 +172,10 @@ namespace Jellyfin.Api.Helpers
             var encodingOptions = serverConfigurationManager.GetEncodingOptions();
 
             encodingHelper.AttachMediaSourceInfo(state, encodingOptions, mediaSource, url);
-            if (item.IsShortcut){
-	    	state.MediaPath = item.Path;
-	    }
+	    state.MediaPath = item.Path;
+	    //if (item.IsShortcut){
+	    //	state.MediaPath = item.Path;
+	    //}
 
             string? containerInternal = Path.GetExtension(state.RequestedUrl);
 

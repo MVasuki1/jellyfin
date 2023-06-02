@@ -67,13 +67,13 @@ namespace Jellyfin.Api.Helpers
             bool isHeadRequest,
             HttpContext httpContext)
         {
-            httpContext.Response.ContentType = contentType;
+            //httpContext.Response.ContentType = contentType;
 
-            // if the request is a head request, return an OkResult (200) with the same headers as it would with a GET request
-            if (isHeadRequest)
-            {
-                return new OkResult();
-            }
+            //// if the request is a head request, return an OkResult (200) with the same headers as it would with a GET request
+            //if (isHeadRequest)
+            //{
+            //    return new OkResult();
+            //}
 
             return new PhysicalFileResult(path, contentType) { EnableRangeProcessing = true };
         }
